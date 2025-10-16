@@ -3,134 +3,117 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>My Video Gallery</title>
+<title>My Video Gallery Pro</title>
 <style>
-  body {
-    margin: 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: #0f0f0f;
-    color: #fff;
-  }
-  header {
-    background: #1e1e1e;
-    padding: 20px;
-    text-align: center;
-    font-size: 2rem;
-    font-weight: bold;
-    color: #ff0000;
-    letter-spacing: 1px;
-  }
-  .search-bar {
-    margin: 20px auto;
-    text-align: center;
-  }
-  .search-bar input {
-    width: 50%;
-    padding: 10px;
-    border-radius: 25px;
-    border: none;
-    outline: none;
-    font-size: 1rem;
-  }
-  .search-bar button {
-    padding: 10px 20px;
-    border-radius: 25px;
-    border: none;
-    background: #ff0000;
-    color: white;
-    font-weight: bold;
-    margin-left: 10px;
-    cursor: pointer;
-  }
-  .grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 20px;
-    padding: 20px;
-  }
-  .video-card {
-    background: #1a1a1a;
-    border-radius: 10px;
-    overflow: hidden;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
-  .video-card:hover {
-    transform: scale(1.05);
-    box-shadow: 0 0 20px #ff0000;
-  }
-  .video-card iframe {
-    width: 100%;
-    height: 200px;
-  }
-  .video-title {
-    padding: 10px;
-    font-weight: bold;
-    font-size: 1rem;
-    line-height: 1.2;
-  }
-  @media (max-width: 600px){
-    .video-card iframe { height: 180px; }
-    .search-bar input { width: 80%; }
-  }
+  body { margin:0; font-family:'Segoe UI', sans-serif; background:#111; color:#fff; }
+  header { background:#1e1e1e; padding:20px; text-align:center; font-size:2rem; font-weight:bold; color:#ff0000; }
+  .search-bar { margin:20px auto; text-align:center; }
+  .search-bar input { width:50%; padding:10px; border-radius:25px; border:none; outline:none; font-size:1rem; }
+  .search-bar button { padding:10px 20px; border-radius:25px; border:none; background:#ff0000; color:#fff; font-weight:bold; margin-left:10px; cursor:pointer; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(320px,1fr)); gap:20px; padding:20px; }
+  .video-card { background:#1a1a1a; border-radius:10px; overflow:hidden; transition:transform 0.3s, box-shadow 0.3s; position:relative; }
+  .video-card:hover { transform:scale(1.05); box-shadow:0 0 20px #ff0000; }
+  .video-card iframe { width:100%; height:200px; }
+  .video-title { padding:10px; font-weight:bold; font-size:1rem; }
+  .desc-btn { cursor:pointer; font-size:0.8rem; color:#ff0000; margin-left:10px; }
+  .save-btn { cursor:pointer; font-size:0.9rem; color:#0f0; float:right; margin-right:10px; }
+  .highlight { grid-column: span 2; transform:scale(1.2); }
+  @media (max-width:600px){ .video-card iframe{ height:180px; } .search-bar input{ width:80%; } }
+  .saved-section { background:#222; padding:20px; margin:20px; border-radius:10px; }
+  .saved-section h2 { margin-top:0; color:#0f0; }
 </style>
 </head>
 <body>
 
-<header>🔥 My Video Gallery 🔥</header>
+<header>🔥 My Video Gallery Pro 🔥</header>
 
 <div class="search-bar">
   <input type="text" id="searchInput" placeholder="Search videos...">
   <button onclick="searchVideos()">Search</button>
 </div>
 
+<div class="saved-section">
+  <h2>Saved Videos (Watch Later)</h2>
+  <div class="grid" id="savedGrid"></div>
+</div>
+
 <div class="grid" id="videoGrid"></div>
 
 <script>
-  // List of videos (your provided URLs)
+  // Video data without titles/descriptions
   const videos = [
-    { url: "https://www.youtube.com/watch?v=39o0uYPo4jU", title: "Video 1" },
-    { url: "https://www.youtube.com/watch?v=3X57ZZjF3yw", title: "Video 2" },
-    { url: "https://www.youtube.com/watch?v=3ok2qX3Iock", title: "Video 3" },
-    { url: "https://www.youtube.com/watch?v=HX3a2MEwNr8", title: "Video 4" },
-    { url: "https://www.youtube.com/watch?v=Yz0z1K1aysw", title: "Video 5" },
-    { url: "https://www.youtube.com/watch?v=LsnBlGvqeas", title: "Video 6" },
-    { url: "https://www.youtube.com/watch?v=I2bJ3K6ms3E", title: "Video 7" },
-    { url: "https://www.youtube.com/shorts/5HeypSTOcrs", title: "Short 1" },
-    { url: "https://www.youtube.com/watch?v=OQM8u09BQJ4", title: "Video 8" },
-    { url: "https://www.youtube.com/watch?v=yzhjbh1L9pY", title: "Video 9" },
-    { url: "https://www.youtube.com/watch?v=5qqtWLgeyJ4", title: "Video 10" },
-    { url: "https://www.youtube.com/watch?v=rNqIt7n0D1A", title: "Video 11" },
-    { url: "https://www.youtube.com/watch?v=X8v5lSBRPi4", title: "Video 12" },
-    { url: "https://www.youtube.com/watch?v=aEtNMFevLRQ", title: "Video 13" },
-    { url: "https://www.youtube.com/watch?v=jeQ8AWSw6-8", title: "Video 14" },
-    { url: "https://www.youtube.com/watch?v=uhi4eSThMKg", title: "Video 15" },
-    { url: "https://www.youtube.com/watch?v=HJSzTePCHy4", title: "Video 16" }
+    { url:"https://www.youtube.com/watch?v=39o0uYPo4jU" },
+    { url:"https://www.youtube.com/watch?v=3X57ZZjF3yw" },
+    { url:"https://www.youtube.com/watch?v=3ok2qX3Iock" },
+    { url:"https://www.youtube.com/watch?v=HX3a2MEwNr8" },
+    { url:"https://www.youtube.com/watch?v=Yz0z1K1aysw" },
+    { url:"https://www.youtube.com/watch?v=LsnBlGvqeas" },
+    { url:"https://www.youtube.com/watch?v=I2bJ3K6ms3E" },
+    { url:"https://www.youtube.com/shorts/5HeypSTOcrs" },
+    { url:"https://www.youtube.com/watch?v=OQM8u09BQJ4" },
+    { url:"https://www.youtube.com/watch?v=yzhjbh1L9pY" },
+    { url:"https://www.youtube.com/watch?v=5qqtWLgeyJ4" },
+    { url:"https://www.youtube.com/watch?v=rNqIt7n0D1A" },
+    { url:"https://www.youtube.com/watch?v=X8v5lSBRPi4" },
+    { url:"https://www.youtube.com/watch?v=aEtNMFevLRQ" },
+    { url:"https://www.youtube.com/watch?v=jeQ8AWSw6-8" },
+    { url:"https://www.youtube.com/watch?v=uhi4eSThMKg" },
+    { url:"https://www.youtube.com/watch?v=HJSzTePCHy4" }
   ];
 
   const grid = document.getElementById("videoGrid");
+  const savedGrid = document.getElementById("savedGrid");
+
+  function loadSaved(){
+    const savedIds = JSON.parse(localStorage.getItem('savedVideos')||'[]');
+    const savedVideos = videos.filter(v=> savedIds.includes(getId(v.url)));
+    savedGrid.innerHTML="";
+    savedVideos.forEach(video=>savedGrid.appendChild(createCard(video,false)));
+  }
+
+  function getId(url){
+    return url.includes("/shorts/") ? url.split("/shorts/")[1] : url.split("v=")[1];
+  }
+
+  function createCard(video,showSave=true){
+    const vidId = getId(video.url);
+    const card = document.createElement("div");
+    card.className="video-card";
+    card.innerHTML=`
+      <iframe src="https://www.youtube.com/embed/${vidId}" frameborder="0" allowfullscreen></iframe>
+      <div class="video-title">
+        ${showSave?'<span class="save-btn" onclick="saveVideo(\''+vidId+'\')">💾</span>':""}
+      </div>
+    `;
+    return card;
+  }
+
+  function saveVideo(vidId){
+    let saved = JSON.parse(localStorage.getItem('savedVideos')||'[]');
+    if(!saved.includes(vidId)) saved.push(vidId);
+    localStorage.setItem('savedVideos',JSON.stringify(saved));
+    loadSaved();
+  }
 
   function displayVideos(list){
-    grid.innerHTML = "";
-    list.forEach(video => {
-      const vidId = video.url.includes("/shorts/") ? video.url.split("/shorts/")[1] : video.url.split("v=")[1];
-      const card = document.createElement("div");
-      card.className = "video-card";
-      card.innerHTML = `
-        <iframe src="https://www.youtube.com/embed/${vidId}" frameborder="0" allowfullscreen></iframe>
-        <div class="video-title">${video.title}</div>
-      `;
-      grid.appendChild(card);
-    });
+    grid.innerHTML="";
+    list.forEach(video=>grid.appendChild(createCard(video,true)));
   }
 
   function searchVideos(){
     const query = document.getElementById("searchInput").value.toLowerCase();
-    const filtered = videos.filter(v => v.title.toLowerCase().includes(query));
+    let filtered = videos.filter(v=>v.url.toLowerCase().includes(query));
     displayVideos(filtered);
+    if(filtered.length>0){
+      const topCard = grid.firstChild;
+      topCard.classList.add("highlight");
+      topCard.scrollIntoView({behavior:"smooth",block:"center"});
+    }
   }
 
-  // Show all videos on page load
+  // Initial load
   displayVideos(videos);
+  loadSaved();
 </script>
 
 </body>
