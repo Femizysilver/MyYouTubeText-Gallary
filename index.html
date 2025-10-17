@@ -3,138 +3,180 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>My Video Gallery Pro</title>
+<title>My Video Gallery</title>
 <style>
-  body { margin:0; font-family:'Segoe UI', sans-serif; background:#111; color:#fff; }
-  header { background:#1e1e1e; padding:20px; display:flex; justify-content:space-between; align-items:center; color:#ff0000; }
-  header h1 { font-size:2rem; font-weight:bold; margin:0; }
-  header a { color:#0f0; text-decoration:none; font-weight:bold; cursor:pointer; }
-  .search-bar { margin:20px auto; text-align:center; }
-  .search-bar input { width:50%; padding:10px; border-radius:25px; border:none; outline:none; font-size:1rem; }
-  .search-bar button { padding:10px 20px; border-radius:25px; border:none; background:#ff0000; color:#fff; font-weight:bold; margin-left:10px; cursor:pointer; }
-  .grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(320px,1fr)); gap:20px; padding:20px; }
-  .video-card { background:#1a1a1a; border-radius:10px; overflow:hidden; transition:transform 0.3s, box-shadow 0.3s; position:relative; }
-  .video-card:hover { transform:scale(1.05); box-shadow:0 0 20px #ff0000; }
-  .video-card iframe { width:100%; height:200px; }
-  .video-title { padding:10px; font-weight:bold; font-size:1rem; display:flex; justify-content:space-between; align-items:center; }
-  .save-btn { cursor:pointer; font-size:0.9rem; color:#0f0; }
-  .highlight { grid-column: span 2; transform:scale(1.2); }
-  @media (max-width:600px){ .video-card iframe{ height:180px; } .search-bar input{ width:80%; } .highlight{ grid-column: span 1; transform:scale(1.1); } }
-  .section { display:none; }
-  .section.active { display:block; }
+  body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #0f0f0f;
+    color: #fff;
+  }
+  header {
+    background: #1e1e1e;
+    padding: 20px;
+    text-align: center;
+    font-size: 2rem;
+    font-weight: bold;
+    color: #ff0000;
+    letter-spacing: 1px;
+  }
+  .search-bar {
+    margin: 20px auto;
+    text-align: center;
+  }
+  .search-bar input {
+    width: 50%;
+    padding: 10px;
+    border-radius: 25px;
+    border: none;
+    outline: none;
+    font-size: 1rem;
+  }
+  .search-bar button {
+    padding: 10px 20px;
+    border-radius: 25px;
+    border: none;
+    background: #ff0000;
+    color: white;
+    font-weight: bold;
+    margin-left: 10px;
+    cursor: pointer;
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 20px;
+    padding: 20px;
+  }
+  .video-card {
+    background: #1a1a1a;
+    border-radius: 10px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .video-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px #ff0000;
+  }
+  .video-card iframe {
+    width: 100%;
+    height: 200px;
+  }
+  .video-title {
+    padding: 10px;
+    font-weight: bold;
+    font-size: 1rem;
+    line-height: 1.2;
+  }
+  @media (max-width: 600px){
+    .video-card iframe { height: 180px; }
+    .search-bar input { width: 80%; }
+  }
 </style>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "VideoGallery",
+  "name": "My Video Gallery Pro",
+  "url": "https://YOUR-GITHUB-USERNAME.github.io/REPO-NAME/",
+  "description": "A stunning online video gallery that showcases curated YouTube videos in a beautiful and functional layout.",
+  "publisher": {
+    "@type": "Organization",
+    "name": "My Video Gallery Pro",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://YOUR-GITHUB-USERNAME.github.io/REPO-NAME/logo.png"
+    }
+  },
+  "video": [
+    {
+      "@type": "VideoObject",
+      "name": "How to Create Stunning Videos",
+      "description": "A creative video on improving your YouTube video design.",
+      "thumbnailUrl": "https://img.youtube.com/vi/39o0uYPo4jU/maxresdefault.jpg",
+      "uploadDate": "2024-01-01",
+      "contentUrl": "https://www.youtube.com/watch?v=39o0uYPo4jU",
+      "embedUrl": "https://www.youtube.com/embed/39o0uYPo4jU"
+    },
+    {
+      "@type": "VideoObject",
+      "name": "Creative Cinematic Vlog",
+      "description": "Cinematic vlog with professional editing techniques.",
+      "thumbnailUrl": "https://img.youtube.com/vi/3X57ZZjF3yw/maxresdefault.jpg",
+      "uploadDate": "2024-02-01",
+      "contentUrl": "https://www.youtube.com/watch?v=3X57ZZjF3yw",
+      "embedUrl": "https://www.youtube.com/embed/3X57ZZjF3yw"
+    },
+    {
+      "@type": "VideoObject",
+      "name": "Photography and Filmmaking Tips",
+      "description": "Improve your photo and video composition with these pro tips.",
+      "thumbnailUrl": "https://img.youtube.com/vi/3ok2qX3Iock/maxresdefault.jpg",
+      "uploadDate": "2024-03-01",
+      "contentUrl": "https://www.youtube.com/watch?v=3ok2qX3Iock",
+      "embedUrl": "https://www.youtube.com/embed/3ok2qX3Iock"
+    }
+  ]
+}
+</script>
 </head>
 <body>
 
-<header>
-  <h1>🔥 My Video Gallery Pro 🔥</h1>
-  <a id="savedLink">Saved Videos 💾</a>
-</header>
+<header>🔥 My Video Gallery 🔥</header>
 
 <div class="search-bar">
   <input type="text" id="searchInput" placeholder="Search videos...">
   <button onclick="searchVideos()">Search</button>
 </div>
 
-<!-- All Videos Section -->
-<div id="allVideos" class="section active">
-  <div class="grid" id="videoGrid"></div>
-</div>
-
-<!-- Saved Videos Section -->
-<div id="savedVideos" class="section">
-  <h2 style="text-align:center; color:#0f0;">Saved Videos (Watch Later)</h2>
-  <div class="grid" id="savedGrid"></div>
-</div>
+<div class="grid" id="videoGrid"></div>
 
 <script>
-const videos = [
-  { id:"39o0uYPo4jU", keywords:"nature relaxing meditation" },
-  { id:"3X57ZZjF3yw", keywords:"lofi beats chill music" },
-  { id:"3ok2qX3Iock", keywords:"science experiment fun" },
-  { id:"HX3a2MEwNr8", keywords:"travel japan vlog" },
-  { id:"Yz0z1K1aysw", keywords:"cooking pasta tutorial" },
-  { id:"LsnBlGvqeas", keywords:"workout fitness exercise" },
-  { id:"I2bJ3K6ms3E", keywords:"motivational speech" },
-  { id:"5HeypSTOcrs", keywords:"funny cat shorts" },
-  { id:"OQM8u09BQJ4", keywords:"tech review smartphone" },
-  { id:"yzhjbh1L9pY", keywords:"meditation guide" },
-  { id:"5qqtWLgeyJ4", keywords:"art drawing tutorial" },
-  { id:"rNqIt7n0D1A", keywords:"DIY home decor" },
-  { id:"X8v5lSBRPi4", keywords:"music video pop" },
-  { id:"aEtNMFevLRQ", keywords:"gaming highlights" },
-  { id:"jeQ8AWSw6-8", keywords:"science facts" },
-  { id:"uhi4eSThMKg", keywords:"travel europe tips" },
-  { id:"HJSzTePCHy4", keywords:"yoga session beginner" }
-];
+  // List of videos (your provided URLs)
+  const videos = [
+    { url: "https://www.youtube.com/watch?v=39o0uYPo4jU", title: "Video 1" },
+    { url: "https://www.youtube.com/watch?v=3X57ZZjF3yw", title: "Video 2" },
+    { url: "https://www.youtube.com/watch?v=3ok2qX3Iock", title: "Video 3" },
+    { url: "https://www.youtube.com/watch?v=HX3a2MEwNr8", title: "Video 4" },
+    { url: "https://www.youtube.com/watch?v=Yz0z1K1aysw", title: "Video 5" },
+    { url: "https://www.youtube.com/watch?v=LsnBlGvqeas", title: "Video 6" },
+    { url: "https://www.youtube.com/watch?v=I2bJ3K6ms3E", title: "Video 7" },
+    { url: "https://www.youtube.com/shorts/5HeypSTOcrs", title: "Short 1" },
+    { url: "https://www.youtube.com/watch?v=OQM8u09BQJ4", title: "Video 8" },
+    { url: "https://www.youtube.com/watch?v=yzhjbh1L9pY", title: "Video 9" },
+    { url: "https://www.youtube.com/watch?v=5qqtWLgeyJ4", title: "Video 10" },
+    { url: "https://www.youtube.com/watch?v=rNqIt7n0D1A", title: "Video 11" },
+    { url: "https://www.youtube.com/watch?v=X8v5lSBRPi4", title: "Video 12" },
+    { url: "https://www.youtube.com/watch?v=aEtNMFevLRQ", title: "Video 13" },
+    { url: "https://www.youtube.com/watch?v=jeQ8AWSw6-8", title: "Video 14" },
+    { url: "https://www.youtube.com/watch?v=uhi4eSThMKg", title: "Video 15" },
+    { url: "https://www.youtube.com/watch?v=HJSzTePCHy4", title: "Video 16" }
+  ];
 
-const videoGrid = document.getElementById("videoGrid");
-const savedGrid = document.getElementById("savedGrid");
-const allVideosSection = document.getElementById("allVideos");
-const savedSection = document.getElementById("savedVideos");
-const savedLink = document.getElementById("savedLink");
+  const grid = document.getElementById("videoGrid");
 
-// Display all videos
-function displayVideos(list, gridEl){
-  gridEl.innerHTML = "";
-  list.forEach(video => {
-    const card = document.createElement("div");
-    card.className = "video-card";
-    card.id = video.id;
-    card.innerHTML = `
-      <iframe src="https://www.youtube.com/embed/${video.id}" frameborder="0" allowfullscreen></iframe>
-      <div class="video-title">
-        Video
-        <span class="save-btn" onclick="saveVideo('${video.id}')">💾</span>
-      </div>
-    `;
-    gridEl.appendChild(card);
-  });
-}
-
-// Save video to localStorage
-function saveVideo(id){
-  let saved = JSON.parse(localStorage.getItem('savedVideos')||'[]');
-  if(!saved.includes(id)) saved.push(id);
-  localStorage.setItem('savedVideos',JSON.stringify(saved));
-  loadSaved();
-}
-
-// Load saved videos
-function loadSaved(){
-  const savedIds = JSON.parse(localStorage.getItem('savedVideos')||'[]');
-  const savedVideos = videos.filter(v => savedIds.includes(v.id));
-  displayVideos(savedVideos, savedGrid);
-}
-
-// Search videos
-function searchVideos(){
-  const query = document.getElementById("searchInput").value.toLowerCase();
-  let filtered = videos.filter(v => v.keywords.toLowerCase().includes(query) || v.id.includes(query));
-  // Exact match on keywords?
-  filtered.sort((a,b)=>{
-    if(a.keywords.toLowerCase()===query) return -1;
-    if(b.keywords.toLowerCase()===query) return 1;
-    return 0;
-  });
-  displayVideos(filtered, videoGrid);
-  if(filtered.length>0){
-    const topCard = document.getElementById(filtered[0].id);
-    topCard.classList.add("highlight");
-    topCard.scrollIntoView({behavior:"smooth", block:"center"});
+  function displayVideos(list){
+    grid.innerHTML = "";
+    list.forEach(video => {
+      const vidId = video.url.includes("/shorts/") ? video.url.split("/shorts/")[1] : video.url.split("v=")[1];
+      const card = document.createElement("div");
+      card.className = "video-card";
+      card.innerHTML = `
+        <iframe src="https://www.youtube.com/embed/${vidId}" frameborder="0" allowfullscreen></iframe>
+        <div class="video-title">${video.title}</div>
+      `;
+      grid.appendChild(card);
+    });
   }
-}
 
-// Toggle sections
-savedLink.addEventListener("click", ()=>{
-  allVideosSection.classList.remove("active");
-  savedSection.classList.add("active");
-  loadSaved();
-});
+  function searchVideos(){
+    const query = document.getElementById("searchInput").value.toLowerCase();
+    const filtered = videos.filter(v => v.title.toLowerCase().includes(query));
+    displayVideos(filtered);
+  }
 
-// Initial load
-displayVideos(videos, videoGrid);
-loadSaved();
+  // Show all videos on page load
+  displayVideos(videos);
 </script>
 
 </body>
